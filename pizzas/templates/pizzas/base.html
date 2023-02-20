@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
     <title>Pizza App</title>
 </head>
 <body>
-    <h1>Base Template</h1>
+    {% include 'pizzas/navbar.html' %}
     {% block content %}
         
     {% endblock content %}
