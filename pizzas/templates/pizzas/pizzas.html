@@ -22,7 +22,7 @@
                                 
                                 {% if user.is_authenticated %}
                                     
-                                     <a href="#">
+                                     <a href="{% url 'order' pizza.id %}">
                                         <button class="btn btn-warning ms-1">Order</button>
                                      </a>
                                     

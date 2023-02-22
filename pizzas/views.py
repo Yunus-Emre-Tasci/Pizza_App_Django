@@ -15,4 +15,10 @@ def pizzas(request):
     return render(request,"pizzas/pizzas.html",context)
 
 def order_view(request,id):
-    return render(request,"pizzas/order.html")
+    pizza=Pizza.objects.get(id=id)
+    
+    context={
+        "pizza":pizza
+    }
+    
+    return render(request,"pizzas/order.html",context)
