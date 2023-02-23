@@ -25,7 +25,7 @@ def order_view(request,id):
             order.pizza=pizza
             order.user=request.user
             order.save()
-            return redirect("home")
+            return redirect("my_orders")
     
     context={
         "pizza":pizza,
@@ -46,10 +46,22 @@ def my_orders(request):
 def update_order_view(request,id):
     order=Order.objects.get(id=id)
     pizza=Pizza.objects.get(id=order.pizza.id)
-    
+    form=PizzaForm(instance=order)
+    if request.method=="POST":
+        form=PizzaForm(request.POST,instance=order) #instance yazılmasaydı yeni bir form(sipariş) create ederdi, instance yazılınca yeni bir form create etme, mevcut order objesi üzerinde gelen datayı işle diyoruz.
+        if form.is_valid():
+            order.save()
+            return redirect("my_orders")
+        
     context={
         "order":order,
-        "pizza":pizza
+        "pizza":pizza,
+        "form":form,
     }
     
     return render(request,"pizzas/update_order.html",context)
+
+def delete_order_view(request,id):
+    order=Order.objects.get(id=id)
+    order.delete()
+    return redirect("my_orders")
